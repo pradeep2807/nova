@@ -17,6 +17,13 @@
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
+      <%= fields_for (:tenant) do |w| %>
+          <div class="form-group col-md-12 padding-zero"> 
+            <% w.label :name,'organization'%>
+            <%= f.label "Unique name for your organization " %>
+            <%= w.text_field :name, required: true, class: "form-control"%>
+          </div>
+      <%end%>
       <%= f.submit t('.sign_up', default: 'Sign up'), class: 'btn btn-primary' %>
     <% end %>
   </div>
