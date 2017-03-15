@@ -1,2 +1,26 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% if current_user %>
+	<h3>Organization: <%= @tenant.name %></h3>
+<% else %>
+	<div class="jumbotron">
+		<h2 class="center">Welcome to the Novacure Pharmaceutical PVT. LTD.</h2>
+		<p class="center">This is Customer data entry Portal</p>
+	</div>
+	<div class="row">
+		<div class="plans clearfix">
+			<div class="col-md-6 center">
+				<h2>Marketing Login</h2>
+					<p class="main-page-features">Login Here to collect customer data</p>
+				<p>
+				<%= link_to 'Sign In', new_user_registration_path(plan: 'free'), class: 'btn btn-login' %>
+				</p>
+			</div>
+			<div class="col-md-6 center">
+				<h2>Admin Login</h2>
+					<p class="main-page-features">Login Here to view customer data</p>
+				<p>
+				<%= link_to 'Sign In', new_user_registration_path(plan: 'premium'), class: 'btn btn-login' %>
+				</p>
+			</div>
+		</div>
+	</div>
+<% end %>
