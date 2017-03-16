@@ -9,13 +9,22 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   
-  ActionMailer::Base.smtp_settings = {
-    :address => "smtp.gmail.com",
-    :port => "587",
+  #ActionMailer::Base.smtp_settings = {
+  #  :address => "smtp.gmail.com",
+  #  :port => "587",
+  #  :authentication => :plain,
+  #  :user_name => "do-not-reply@example.com",
+  #  :password => ENV["SMTP_ENTRY"],
+  #  :enable_starttls_auto => true
+  #}
+
+   ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
     :authentication => :plain,
-    :user_name => "do-not-reply@example.com",
-    :password => ENV["SMTP_ENTRY"],
-    :enable_starttls_auto => true
+    :user_name      => 'pradeep2807',
+    :password       => 'king4love',
+    :domain         => 'novacure.net'
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
