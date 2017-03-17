@@ -8,10 +8,9 @@ class HomeController < ApplicationController
   		else
   			Tenant.set_current_tenant current_user.tenants.first
   		end
-  		@tenant = tenant.current_tenant
+  		@tenant = Tenants.current_tenant
   		params[:tenant_id] = @tenant.id
   		end	
-
     end
 
 end
