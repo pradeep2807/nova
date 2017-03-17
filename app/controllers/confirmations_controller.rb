@@ -1,4 +1,4 @@
-class ConfirmationController <Milia::ConfirmationController
+class ConfirmationsController <Milia::ConfirmationsController
 def show
 	if @confirmable.new_record? ||
 	!::Milia.use_invite_member ||
