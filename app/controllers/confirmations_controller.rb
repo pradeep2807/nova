@@ -28,7 +28,7 @@ def show
 			new_user_session_path
 		end
 	end
-	#Then create a set_confirmable() method under private:
+	Then create a set_confirmable() method under private:
 	private
 	def set_confirmable()
 		@confirmable = User.find_or_initialize_with_error_by(:confirmation_token,
