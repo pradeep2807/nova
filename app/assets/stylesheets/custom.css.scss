@@ -102,3 +102,12 @@ login-main-page{
 	font-weight: bold;
 	
 }
+
+.table tr td {
+	a.main-link{
+		color: #428bca;
+	}
+	a.main-link:hover{
+		background: none;
+	}
+}
