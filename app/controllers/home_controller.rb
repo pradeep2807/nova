@@ -8,6 +8,7 @@ class HomeController < ApplicationController
   		else
   			Tenant.set_current_tenant current_user.tenants.first
   		end
+      
   		@tenant = Tenant.current_tenant
       @customers = Customer.by_plan_and_tenant(@tenant.id)
   		params[:tenant_id] = @tenant.id

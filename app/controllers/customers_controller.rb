@@ -75,8 +75,8 @@ class CustomersController < ApplicationController
     end
 
     def verify_tenant
-      unless params[:tenant_id] == Tenant.current_tenant_id.to_s
-        redirect_to :root, flash:{error: 'YOU ARE NOT AN ADMIN'}
+      unless params[:tenant_id] = Tenant.current_tenant_id.to_s
+        redirect_to :root, flash: {error: 'YOU ARE NOT AN ADMIN'}
       end
     end 
 end
