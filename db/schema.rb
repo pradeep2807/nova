@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320060333) do
+ActiveRecord::Schema.define(version: 20170323105930) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name"
@@ -21,14 +21,14 @@ ActiveRecord::Schema.define(version: 20170320060333) do
     t.string   "locality"
     t.integer  "pin"
     t.string   "emailid"
-    t.integer  "mobileno"
+    t.integer  "mobileno",   limit: 8
     t.string   "bg"
     t.string   "diseases"
     t.string   "medicin"
     t.string   "allergy"
     t.integer  "tenant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "customers", ["tenant_id"], name: "index_customers_on_tenant_id"

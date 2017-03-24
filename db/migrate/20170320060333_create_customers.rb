@@ -8,7 +8,7 @@ class CreateCustomers < ActiveRecord::Migration
       t.string :locality
       t.integer :pin
       t.string :emailid
-      t.integer :mobileno
+      t.integer :mobileno ,  :limit => 8
       t.string :bg
       t.string :diseases
       t.string :medicin

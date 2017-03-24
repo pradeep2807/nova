@@ -1,5 +1,6 @@
 <% if current_user %>
 	<h3 class= "pull-right">Organization: <%= @tenant.name %></h3>
+	<%= render 'customers/list'%>
 <% else %>
 	<div class="jumbotron">
 		<h2 class="center">Welcome to the Novacure Pharmaceutical PVT. LTD.</h2>

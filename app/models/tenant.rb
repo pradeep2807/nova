@@ -3,6 +3,10 @@
    acts_as_universal_and_determines_tenant
    has_many :members, dependent: :destroy
    has_many :customers, dependent: :destroy
+
+   def can_create_new_data_entries?
+    (plan == 'free' && customers.count <1) || (plan == 'premium')
+   end
   
     validates_uniqueness_of :name
     validates_presence_of :name
