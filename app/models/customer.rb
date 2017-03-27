@@ -12,10 +12,10 @@ class Customer < ActiveRecord::Base
 
 	def self.by_plan_and_tenant(tenant_id)
 		tenant = Tenant.find(tenant_id)
-		if tenant.plan == 'premium'
+		if tenant.plan == 'free'
 			tenant.customers
 		else
-			tenant.customers.order(:id).limit(1)	
+			tenant.customers
 		end
 	end
 end

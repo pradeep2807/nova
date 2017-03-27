@@ -1,6 +1,63 @@
 <% if current_user %>
 	<h3 class= "pull-right">Organization: <%= @tenant.name %></h3>
-	<%= render 'customers/list'%>
+	<%- model_class = Customer -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:dob) %></th>
+      <th><%= model_class.human_attribute_name(:building) %></th>
+      <th><%= model_class.human_attribute_name(:subarea) %></th>
+      <th><%= model_class.human_attribute_name(:locality) %></th>
+      <th><%= model_class.human_attribute_name(:pin) %></th>
+      <th><%= model_class.human_attribute_name(:emailid) %></th>
+      <th><%= model_class.human_attribute_name(:mobile_No) %></th>
+      <th><%= model_class.human_attribute_name(:blood_group) %></th>
+      <th><%= model_class.human_attribute_name(:diseases) %></th>
+      <th><%= model_class.human_attribute_name(:medicine) %></th>
+      <th><%= model_class.human_attribute_name(:allergy) %></th>
+
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.name,
+                tenant_customer_path(customer, tenant_id: @tenant.id, class: 'main-link') %></td>
+        <td><%= customer.dob %></td>
+        <td><%= customer.building %></td>
+        <td><%= customer.subarea %></td>
+        <td><%= customer.locality %></td>
+        <td><%= customer.pin %></td>
+        <td><%= customer.emailid %></td>
+        <td><%= customer.mobileno %></td>
+        <td><%= customer.bg %></td>
+        <td><%= customer.diseases %></td>
+        <td><%= customer.medicin %></td>
+        <td><%= customer.allergy %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_tenant_customer_path(customer, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      tenant_customer_path(customer, tenant_id: @tenant.id),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', 
+                      :default => t("helpers.links.confirm", 
+                      :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Data Entry' , new_tenant_customer_path(tenant_id: @tenant.id),
+            :class => 'btn btn-primary' %>
 <% else %>
 	<div class="jumbotron">
 		<h2 class="center">Welcome to the Novacure Pharmaceutical PVT. LTD.</h2>
