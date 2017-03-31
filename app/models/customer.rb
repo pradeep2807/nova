@@ -1,7 +1,13 @@
 class Customer < ActiveRecord::Base
+    before_save do
+		self.diseases.gsub!(/[\[\]\"]/,"") if attribute_present?("diseases")
+	end
+
   belongs_to :tenant
   validates_uniqueness_of :mobileno
   validate :free_plan_can_only_have_one_project
+
+
 
 
 	def free_plan_can_only_have_one_project

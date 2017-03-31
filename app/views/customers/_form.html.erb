@@ -76,8 +76,15 @@
   </div>
   <div class="form-group">
     <%= f.label :diseases, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :diseases, :class => 'form-control' %>
+    <div class="col-lg-10 pull-right">
+      <%= label_tag 'diseases_diabetes', 'Diabetes' %>
+      <%= check_box_tag 'customer[diseases][]', 'Diabetes', checked('Diabetes'), id: 'diseases_diabetes'%>
+
+      <%= label_tag 'diseases_cancer', 'Cancer' %>
+      <%= check_box_tag 'customer[diseases][]', 'Cancer', checked('Cancer'), id: 'diseases_cancer'%>
+
+      <%= label_tag 'diseases_tb', 'TB' %>
+      <%= check_box_tag 'customer[diseases][]', 'TB', checked('TB'), id: 'diseases_tb'%>
     </div>
   </div>
   <div class="form-group">

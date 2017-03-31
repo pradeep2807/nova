@@ -1,4 +1,5 @@
 <%- model_class = Customer -%>
+<%= link_to "Create New Form", sampleform_path, 'data-no-turbolink' => true %> 
 <div class="page-header">
 <h3><%= @customer.name %></h3>
 <h3><small>Organization - <%= tenant_name @customer.tenant_id %></small></h3>
