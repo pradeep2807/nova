@@ -25,15 +25,18 @@ class CustomersController < ApplicationController
 
   # POST /customers
   # POST /customers.json
-  def create
-    @customer = Customer.new(customer_params)
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to root_url, notice: 'Customer was successfully created.' }
-      else
-        format.html { render :new }
-      end
+  
+  def create 
+    @customer = Customer.new(customer_params) 
+      respond_to do |format| 
+      if @customer.save 
+        format.html { 
+        @customer.send_sms 
+        redirect_to root_url, notice: 'Customer data was successfully created.' 
+        } 
+        else 
+        format.html { render :new } 
+      end 
     end
   end
 
@@ -42,7 +45,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to root_url, notice: 'Customer was successfully updated.' }
+        format.html { redirect_to root_url, notice: 'Customer data was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -54,7 +57,7 @@ class CustomersController < ApplicationController
   def destroy
     @customer.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Customer was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Customer data was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,7 +70,7 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :dob, :building, :subarea, :locality, :pin, :emailid, :mobileno, :bg, {diseases:[]}, :medicin, :allergy, :tenant_id)
+      params.require(:customer).permit(:uid, :name, :dob, :building, :subarea, :locality, :pin, :emailid, :mobileno, :bg, {diseases:[]}, :medicin, :allergy, :tenant_id)
     end
 
     def set_tenant
@@ -78,5 +81,5 @@ class CustomersController < ApplicationController
       unless params[:tenant_id] = Tenant.current_tenant_id.to_s
         redirect_to :root, flash: {error: 'YOU ARE NOT AN ADMIN'}
       end
-    end 
+    end
 end

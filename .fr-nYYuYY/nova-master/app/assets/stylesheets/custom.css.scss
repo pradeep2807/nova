@@ -1,0 +1,75 @@
+/* Login Page CSS */
+
+.user-name{
+	padding: 0 !important ;
+	padding-left: 5px;
+	padding-top: 15px !important;
+	text-align: center;
+}
+
+.user-name>.a {
+	color: #fff !important;
+	margin: 0 !important;
+	padding: 5px!important;
+}
+
+.user-name>a:hover, a:focus {
+	color: #000 !important;
+}
+
+.btn-login{
+	width: auto;
+	color: #fff;
+	border: 1px solid #2ecc71;
+	background-color: #2ecc71;
+	margin-top: 10px;
+}
+
+.btn-login:hover{
+	background-color: #27ae60;
+	border-color:  #27ae60;
+	color: #fff;
+}
+
+.main-page-features{
+	list-style:none;
+	margin: auto;
+	padding: auto;
+}
+
+.center{
+	text-align: center;
+}
+
+login-main-page{
+	float:right;
+}
+
+/* Footer CSS */
+
+.footer-space{
+	padding-top: 50px;
+}
+
+/*Sign up page*/
+
+.padding-zero{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+/**/
+
+.unique-organization-css{
+	font-weight: bold;
+	
+}
+
+.table tr td {
+	a.main-link{
+		color: #428bca;
+	}
+	a.main-link:hover{
+		background: none;
+	}
+}

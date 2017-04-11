@@ -1,0 +1,134 @@
+ <%= form_for [@tenant, @customer], :html => { :class => "form-horizontal customer" }, :id => 'form1' do |f| %>
+  <% if @customer.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @customer.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+<h3 align=centre>Personal Infomation</h3>
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :date_of_birth, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :dob, :class => 'form-control datepicker' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :mobileno, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :mobileno, :class => 'form-control', value: params[:mobile], :id =>"mobileno", onblur:"Calculate()" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :email_Id, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :emailid, :class => 'form-control' %>
+    </div>
+  </div>
+  <H3 align=centre>Address</H3>
+  <div class="form-group">
+    <%= f.label :building, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :building, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :sub_area, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :subarea, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :locality, :class => 'control-label col-md-2'%>
+    <div class="col-lg-10">
+      <%= f.text_field :locality, :class => 'form-control', :id => "locality", onblur: "Calculate()" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :pincode, :class => 'control-label col-md-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :pin, :class => 'form-control' %>
+    </div>
+  </div>
+  
+  <h3 align=left>Medical Information</h3>
+  <div class="form-group">
+    <%= f.label :blood_group, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :bg, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :diseases, :class => 'control-label col-lg-2' %>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'Diabetes', checked('Diabetes'), id: 'diseases_diabetes'%>
+      <%= label_tag 'diseases_diabetes', 'Diabetes' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'Cancer', checked('Cancer'), id: 'diseases_cancer'%>
+      <%= label_tag 'diseases_cancer', 'Cancer' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'TB', checked('TB'), id: 'diseases_tb'%>
+      <%= label_tag 'diseases_tb', 'TB' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'BP', checked('BP'), id: 'diseases_tb'%>
+      <%= label_tag 'diseases_bp', 'BP' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'HIV', checked('TB'), id: 'diseases_tb'%>
+      <%= label_tag 'diseases_hiv', 'HIV' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'Brain Tumor', checked('Brain Tumor'), id: 'diseases_tb'%>
+      <%= label_tag 'diseases_brain_tumor', 'Brain Tumor' %>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-4">
+      <%= check_box_tag 'customer[diseases][]', 'STD', checked('STD'), id: 'diseases_tb'%>
+      <%= label_tag 'diseases_std', 'STD' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :medicine, :class => 'control-label col-md-2 col-sm-3 col-xs-4' %>
+    <div class="col-lg-10">
+      <%= f.text_field :medicin, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :allergy, :class => 'control-label col-md-2 col-sm-3 col-xs-4' %>
+    <div class="col-lg-10">
+      <%= f.text_field :allergy, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :uid, :class => 'control-label col-md-2 col-sm-3 col-xs-4'%>
+    <div class="col-lg-10">
+      <%= f.text_field :uid , :class => 'form-control', :id => 'uid' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+    <br>
+      <%= f.hidden_field :tenant_id, value: params[:tenant_id], :class => 'form-control' %>
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                root_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

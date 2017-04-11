@@ -1,0 +1,5 @@
+I"W(function() {
+  $(document).on("turbolinks:load", function() {});
+
+}).call(this);
+:ET

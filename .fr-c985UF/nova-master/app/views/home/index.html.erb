@@ -1,0 +1,86 @@
+<% if current_user %>
+	<h3>Organization: <%= @tenant.name %></h3>
+	<%- model_class = Customer -%>
+  <div class="page-header">
+    <h4 class="col-md-10 col-sm-12 col-xs-12">Current Customer Database</h4>
+    <%= link_to 'Add A New Person' , new_tenant_customer_path(tenant_id: @tenant.id), :class => 'btn btn-login' %>
+  </div>
+
+  <!-- Customer Display Table Starts Here -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:uid) %></th>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:dob) %></th>
+        <th><%= model_class.human_attribute_name(:building) %></th>
+        <th><%= model_class.human_attribute_name(:subarea) %></th>
+        <th><%= model_class.human_attribute_name(:locality) %></th>
+        <th><%= model_class.human_attribute_name(:pin) %></th>
+        <th><%= model_class.human_attribute_name(:emailid) %></th>
+        <th><%= model_class.human_attribute_name(:mobile_No) %></th>
+        <th><%= model_class.human_attribute_name(:blood_group) %></th>
+        <th><%= model_class.human_attribute_name(:diseases) %></th>
+        <th><%= model_class.human_attribute_name(:medicine) %></th>
+        <th><%= model_class.human_attribute_name(:allergy) %></th>
+
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.uid %></td>
+          <td><%= link_to customer.name,
+                  tenant_customer_path(customer, tenant_id: @tenant.id, class: 'main-link') %></td>
+          <td><%= customer.dob %></td>
+          <td><%= customer.building %></td>
+          <td><%= customer.subarea %></td>
+          <td><%= customer.locality %></td>
+          <td><%= customer.pin %></td>
+          <td><%= customer.emailid %></td>
+          <td><%= customer.mobileno %></td>
+          <td><%= customer.bg %></td>
+          <td><%= customer.diseases %></td>
+          <td><%= customer.medicin %></td>
+          <td><%= customer.allergy %></td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_tenant_customer_path(customer, tenant_id: @tenant.id) %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        tenant_customer_path(customer, tenant_id: @tenant.id),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', 
+                        :default => t("helpers.links.confirm", 
+                        :default => 'Are you sure?')) } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- Customer Display Table Ends Here -->
+
+<% else %>
+	<div class="jumbotron">
+		<h2 class="center">Welcome to the Novacure Pharmaceutical India PVT. LTD.</h2>
+		<p class="center">This is a Marketing and Admin Access Portal.</p>
+	</div>
+	<div class="row">
+		<div class="plans clearfix">
+			<div class="col-md-6 center">
+				<h2>Marketing Login</h2>
+					<p class="main-page-features">Login Here to collect customer data</p>
+				<p>
+				<%= link_to 'Sign In', new_user_session_path, class: 'btn btn-login' %>
+				</p>
+			</div>
+			<div class="col-md-6 center">
+				<h2>Admin Login</h2>
+					<p class="main-page-features">Login Here to view customer data</p>
+				<p>
+				<%= link_to 'Sign In', new_user_session_path, class: 'btn btn-login' %>
+				</p>
+			</div>
+		</div>
+	</div>
+<% end %>

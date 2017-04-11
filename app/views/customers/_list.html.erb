@@ -6,13 +6,15 @@
 <table class="table table-striped">
   <thead>
     <tr>
-
+    <th><%= model_class.human_attribute_name(:uid) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:dob) %></th>
       <th><%= model_class.human_attribute_name(:building) %></th>
       <th><%= model_class.human_attribute_name(:subarea) %></th>
       <th><%= model_class.human_attribute_name(:locality) %></th>
       <th><%= model_class.human_attribute_name(:pin) %></th>
+      <th><%= model_class.human_attribute_name(:city) %></th>
+      <th><%= model_class.human_attribute_name(:state) %></th>
       <th><%= model_class.human_attribute_name(:emailid) %></th>
       <th><%= model_class.human_attribute_name(:mobileno) %></th>
       <th><%= model_class.human_attribute_name(:bg) %></th>
@@ -26,6 +28,7 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
+        <td><%= customer.uid %></td>
         <td><%= link_to customer.name,
                 tenant_customer_path(customer, tenant_id: @tenant.id, class: 'main-link') %></td>
         <td><%= customer.dob %></td>
@@ -33,6 +36,8 @@
         <td><%= customer.subarea %></td>
         <td><%= customer.locality %></td>
         <td><%= customer.pin %></td>
+        <td><%= customer.city %></td>
+        <td><%= customer.state %></td>
         <td><%= customer.emailid %></td>
         <td><%= customer.mobileno %></td>
         <td><%= customer.bg %></td>
@@ -41,14 +46,13 @@
         <td><%= customer.allergy %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_tenant_customer_path(customer, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
+              edit_tenant_customer_path(customer, tenant_id: @tenant.id) %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       tenant_customer_path(customer, tenant_id: @tenant.id),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', 
                       :default => t("helpers.links.confirm", 
-                      :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
+                      :default => 'Are you sure?')) }%>
         </td>
       </tr>
     <% end %>

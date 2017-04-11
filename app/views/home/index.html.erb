@@ -1,83 +1,91 @@
 <% if current_user %>
-	<h3 class= "pull-right">Organization: <%= @tenant.name %></h3>
+	<h3>Organization: <%= @tenant.name %></h3>
 	<%- model_class = Customer -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
+  <div class="page-header col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-10 col-sm-10 col-xs-12">
+      <h4>Customer Details Entered by You</h4>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <%= link_to 'Add A New Person' , new_tenant_customer_path(tenant_id: @tenant.id), :class => 'btn btn-signin' %>
+    </div>
+  </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:dob) %></th>
-      <th><%= model_class.human_attribute_name(:building) %></th>
-      <th><%= model_class.human_attribute_name(:subarea) %></th>
-      <th><%= model_class.human_attribute_name(:locality) %></th>
-      <th><%= model_class.human_attribute_name(:pin) %></th>
-      <th><%= model_class.human_attribute_name(:emailid) %></th>
-      <th><%= model_class.human_attribute_name(:mobile_No) %></th>
-      <th><%= model_class.human_attribute_name(:blood_group) %></th>
-      <th><%= model_class.human_attribute_name(:diseases) %></th>
-      <th><%= model_class.human_attribute_name(:medicine) %></th>
-      <th><%= model_class.human_attribute_name(:allergy) %></th>
-
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @customers.each do |customer| %>
+  <!-- Customer Display Table Starts Here -->
+  <table class="table customer-show-table">
+    <thead>
       <tr>
-        <td><%= link_to customer.name,
-                tenant_customer_path(customer, tenant_id: @tenant.id, class: 'main-link') %></td>
-        <td><%= customer.dob %></td>
-        <td><%= customer.building %></td>
-        <td><%= customer.subarea %></td>
-        <td><%= customer.locality %></td>
-        <td><%= customer.pin %></td>
-        <td><%= customer.emailid %></td>
-        <td><%= customer.mobileno %></td>
-        <td><%= customer.bg %></td>
-        <td><%= customer.diseases %></td>
-        <td><%= customer.medicin %></td>
-        <td><%= customer.allergy %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_tenant_customer_path(customer, tenant_id: @tenant.id), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      tenant_customer_path(customer, tenant_id: @tenant.id),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', 
-                      :default => t("helpers.links.confirm", 
-                      :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
+        <th><%= model_class.human_attribute_name(:uid) %></th>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:dob) %></th>
+        <th><%= model_class.human_attribute_name(:building) %></th>
+        <th><%= model_class.human_attribute_name(:subarea) %></th>
+        <th><%= model_class.human_attribute_name(:locality) %></th>
+        <th><%= model_class.human_attribute_name(:pin) %></th>
+        <th><%= model_class.human_attribute_name(:city) %></th>
+        <th><%= model_class.human_attribute_name(:state) %></th>
+        <th><%= model_class.human_attribute_name(:emailid) %></th>
+        <th><%= model_class.human_attribute_name(:mobile_no) %></th>
+        <th><%= model_class.human_attribute_name(:blood_group) %></th>
+        <th><%= model_class.human_attribute_name(:diseases) %></th>
+        <th><%= model_class.human_attribute_name(:medicine) %></th>
+        <th><%= model_class.human_attribute_name(:allergy) %></th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.uid %></td>
+          <td><%= link_to customer.name,
+                  tenant_customer_path(customer, tenant_id: @tenant.id, class: 'main-link') %></td>
+          <td><%= customer.dob %></td>
+          <td><%= customer.building %></td>
+          <td><%= customer.subarea %></td>
+          <td><%= customer.locality %></td>
+          <td><%= customer.pin %></td>
+          <td><%= customer.city %></td>
+          <td><%= customer.state %></td>
+          <td><%= customer.emailid %></td>
+          <td><%= customer.mobileno %></td>
+          <td><%= customer.bg %></td>
+          <td><%= customer.diseases %></td>
+          <td><%= customer.medicin %></td>
+          <td><%= customer.allergy %></td>
+          <td>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_tenant_customer_path(customer, tenant_id: @tenant.id) %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        tenant_customer_path(customer, tenant_id: @tenant.id),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', 
+                        :default => t("helpers.links.confirm", 
+                        :default => 'Are you sure?')) } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- Customer Display Table Ends Here -->
 
-<%= link_to 'New Data Entry' , new_tenant_customer_path(tenant_id: @tenant.id),
-            :class => 'btn btn-primary' %>
 <% else %>
-	<div class="jumbotron">
-		<h2 class="center">Welcome to the Novacure Pharmaceutical PVT. LTD.</h2>
-		<p class="center">This is Customer data entry Portal</p>
+	<div class="custom-jumbotron">
+		<h2 class="center">Customer Data Entry Portal</h2>
+		<p class="center">Managed by Novacure Pharmaceutical India Pvt. Ltd.</p>
 	</div>
 	<div class="row">
 		<div class="plans clearfix">
 			<div class="col-md-6 center">
-				<h2>Marketing Login</h2>
-					<p class="main-page-features">Login Here to collect customer data</p>
+				<h2>Customer Data Entry Portal</h2>
+					<p class="main-page-features">Login Here to collect Customer Data</p>
 				<p>
-				<%= link_to 'Sign In', new_user_session_path(plan: 'free'), class: 'btn btn-login' %>
+				<%= link_to 'Sign In', new_user_session_path, class: 'btn btn-login' %>
 				</p>
 			</div>
 			<div class="col-md-6 center">
-				<h2>Admin Login</h2>
-					<p class="main-page-features">Login Here to view customer data</p>
+				<h2>View Customer Data</h2>
+					<p class="main-page-features">Login Here to view Customer Data</p>
 				<p>
-				<%= link_to 'Sign In', new_user_session_path(plan: 'free'), class: 'btn btn-login' %>
+				<%= link_to 'Sign In', new_user_session_path, class: 'btn btn-login' %>
 				</p>
 			</div>
 		</div>

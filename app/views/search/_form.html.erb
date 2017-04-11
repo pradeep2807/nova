@@ -1,0 +1,50 @@
+<%= form_for :term, url: tenant_search_path(params[:tenant_id],:customers), method: :get do |form| %>
+  <p>
+    <%= text_field_tag :term, params[:term], class: "search-field col-md-12 col-sm-12 col-xs-12" %>
+    <%= submit_tag "Search", name: nil, class: "btn btn-signin" %>
+  </p>
+<% end %>
+
+<!-- Customer Display Table Starts Here -->
+  <table class="table customer-show-table">
+      <thead>
+      <tr>
+        <th>UID</th>
+        <th>Name</th>
+        <th>DOB</th>
+        <th>Building</th>
+        <th>Sub Area</th>
+        <th>Locality</th>
+        <th>Pin</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Email ID</th>
+        <th>Mobile No.</th>
+        <th>Blood Group</th>
+        <th>Diseases</th>
+        <th>Medicine</th>
+        <th>Allergy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.uid %></td>
+          <td><%= customer.name %></td>
+          <td><%= customer.dob %></td>
+          <td><%= customer.building %></td>
+          <td><%= customer.subarea %></td>
+          <td><%= customer.locality %></td>
+          <td><%= customer.pin %></td>
+          <td><%= customer.city %></td>
+          <td><%= customer.state %></td>
+          <td><%= customer.emailid %></td>
+          <td><%= customer.mobileno %></td>
+          <td><%= customer.bg %></td>
+          <td><%= customer.diseases %></td>
+          <td><%= customer.medicin %></td>
+          <td><%= customer.allergy %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

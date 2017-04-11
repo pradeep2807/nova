@@ -8,13 +8,12 @@ class CreateCustomers < ActiveRecord::Migration
       t.string :locality
       t.integer :pin
       t.string :emailid
-      t.integer :mobileno ,  :limit => 8
+      t.integer :mobileno
       t.string :bg
       t.string :diseases
       t.string :medicin
       t.string :allergy
       t.belongs_to :tenant, index: true, foreign_key: true
-
       t.timestamps null: false
     end
   end

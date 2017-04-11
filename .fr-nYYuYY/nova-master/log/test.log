@@ -1,0 +1,205 @@
+  [1m[36m (1.3ms)[0m  [1mCREATE TABLE "customers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "dob" date, "building" varchar, "subarea" varchar, "locality" varchar, "pin" integer, "emailid" varchar, "mobileno" integer(8), "bg" varchar, "diseases" varchar, "medicin" varchar, "allergy" varchar, "tenant_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "uid" varchar) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX "index_customers_on_tenant_id" ON "customers" ("tenant_id")[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "members" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tenant_id" integer, "user_id" integer, "first_name" varchar, "last_name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX "index_members_on_tenant_id" ON "members" ("tenant_id")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_members_on_tenant_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_members_on_tenant_id' AND type='index'
+
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_members_on_user_id" ON "members" ("user_id")[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "sessions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session_id" varchar NOT NULL, "data" text, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_sessions_on_session_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_sessions_on_session_id' AND type='index'
+
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "tenants" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tenant_id" integer, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "plan" varchar) 
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX "index_tenants_on_name" ON "tenants" ("name")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_tenants_on_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_tenants_on_name' AND type='index'
+
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX "index_tenants_on_tenant_id" ON "tenants" ("tenant_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE TABLE "tenants_users" ("tenant_id" integer NOT NULL, "user_id" integer NOT NULL) 
+  [1m[36m (1.3ms)[0m  [1mCREATE  INDEX "index_tenants_users_on_tenant_id_and_user_id" ON "tenants_users" ("tenant_id", "user_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "confirmation_token" varchar, "confirmed_at" datetime, "confirmation_sent_at" datetime, "unconfirmed_email" varchar, "skip_confirm_change_password" boolean DEFAULT 'f', "tenant_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_confirmation_token' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m  CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170403052142')
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170314092828')[0m
+  [1m[35m (0.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170314092832')
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170314092833')[0m
+  [1m[35m (1.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170314092834')
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170314092835')[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170315065819')
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20170320060333')[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20170323105930')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.9ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.6ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.0ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.0ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.6ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.1ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "customers" ("name", "dob", "building", "subarea", "locality", "pin", "emailid", "mobileno", "bg", "diseases", "medicin", "allergy", "tenant_id", "created_at", "updated_at", "id") VALUES ('MyString', '2017-03-20', 'MyString', 'MyString', 'MyString', 1, 'MyString', 1, 'MyString', 'MyString', 'MyString', 'MyString', NULL, '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "members"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "members" ("tenant_id", "user_id", "first_name", "last_name", "created_at", "updated_at", "id") VALUES (NULL, NULL, 'MyString', 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36mFixture Delete (0.2ms)[0m  [1mDELETE FROM "tenants"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "tenants" ("tenant_id", "name", "created_at", "updated_at", "id") VALUES (NULL, 'MyString', '2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)[0m
+  [1m[35mFixture Delete (0.1ms)[0m  DELETE FROM "users"
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "users" ("created_at", "updated_at", "id") VALUES ('2017-04-03 09:53:05', '2017-04-03 09:53:05', 298486374)
+  [1m[36m (0.6ms)[0m  [1mrollback transaction[0m

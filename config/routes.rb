@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
 
-
   resources :tenants do
-    resources :customers
+  resources :customers
   end
   
+  get "/sms" => 'home#sms', :as => :sms
+
   resources :members
   get 'home/index'
 
-   root :to => "home#index"
+  root :to => "home#index"
 
+  #Search
+  resources :tenants do
+  resources :customers
+    get "search", to: "search#search"
+  end
     
   # *MUST* come *BEFORE* devise's definitions (below)
   as :user do   
